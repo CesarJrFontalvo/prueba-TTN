@@ -24,15 +24,21 @@ const List = () => {
         const pUrl = "https://restcountries.com/v2/name/";
         const input = searchText;
         let filtrar = pUrl + input;
+        try {
+            const resp = await fetch(filtrar);
+            const data = await resp.json();
+            setFiltro(data);
+            console.log(data);
+        } catch (error) {
 
-        const resp = await fetch(filtrar);
-        const data = await resp.json();
-        setFiltro(data);
-        console.log(data);
+            alert("No se encontro el pais intenta escribirlo de otra forma");
+            window.location.reload();
+        }
+
     };
 
 
-    // TRAER DATOS DE LA API
+    // TRAER DATOS DE LA API------------------------------------
     const [registros, setRegistro] = useState([]);
     const getData = () => {
         axios.get(url)
@@ -43,7 +49,8 @@ const List = () => {
                 console.log(error);
             })
     }
-    // PAGINACION
+
+    // PAGINACION---------------------------------------------
     const [currentPage, setCurrentPage] = useState(0)
     const filterRegistro = () => {
         return registros.slice(currentPage, currentPage + 20);
@@ -56,7 +63,7 @@ const List = () => {
             setCurrentPage(currentPage - 20);
     }
 
-    // MODAL
+    // MODAL ---------------------------------------------------------
     const [show, setShow] = useState(false);
     const [chooseList, setChooseList] = useState({})
 
@@ -75,11 +82,8 @@ const List = () => {
             Buscador(searchText);
         }
     }, [searchText])
+console.log(registros)
 
-    console.log(registros)
-    console.log(filtro)
-    console.log(searchText)
-    // console.log(filterRegistro())
     return (
         <div className='container centrar'>
             <Navbar bg="light" expand="lg" className="sticky-top">
@@ -98,23 +102,24 @@ const List = () => {
                                 value={searchText}
                                 onChange={handleInputChange}
                             />
-                            <Button className="btn btn-danger me-2 d-flex buttonPage"
-                                onClick={prevPage}
 
+                            <Button className="btn btn-danger me-2 d-flex buttonPage "
+                                onClick={prevPage}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
                                 </svg>&nbsp; Página anterior
                             </Button>
+
                             <Button className="btb btn-primary buttonPage"
                                 onClick={nextPage}
-
                             >
                                 Página siguiente &nbsp;
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
                                 </svg>
                             </Button>
+
                         </Form>
                     </Navbar.Collapse>
                 </Container>
@@ -137,7 +142,8 @@ const List = () => {
                             </thead>
 
                             <tbody>
-
+                                
+                                
                                 {filterRegistro().map((item, index) => (
                                     <tr key={index} className='m-3'>
                                         <td> <img src={item.flag} alt="Bandera" width="100" height="100" /></td>
@@ -186,7 +192,7 @@ const List = () => {
             }
 
 
-            {/* Modal de la descripcion de las peliculas */}
+            {/* Modal detalles de los paises*/}
 
             <Container className=" container centrar" >
                 <Modal show={show}

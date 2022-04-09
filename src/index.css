@@ -21,10 +21,13 @@ code {
   margin: auto;
   display: block;
   width: 62%;
+  background-color:    #F8F9F9  ;
 }
+
 .centrar{
   margin: auto;
   width: 80%;
+  
 }
 img{
   width: 50px;
@@ -36,10 +39,11 @@ img{
   margin: auto;
   
 }
-/* centrar el contenido del boton */
+
 
 .buttonPage{
   width: 100%;
   margin: auto;
+  
 }
 

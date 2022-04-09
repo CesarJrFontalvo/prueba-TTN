@@ -1,1 +1,1 @@
-export const url ="https://restcountries.com/v2/all?offset=0&limit=10";
+export const url ="https://restcountries.com/v2/all?fields=name,capital,region,flag,population,area";
