@@ -36,4 +36,10 @@ img{
   margin: auto;
   
 }
+/* centrar el contenido del boton */
+
+.buttonPage{
+  width: 100%;
+  margin: auto;
+}
 

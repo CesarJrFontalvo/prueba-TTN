@@ -5,6 +5,7 @@ import { Button, Table, Modal, Container, Navbar, Form, FormControl } from 'reac
 import { useForm } from '../hooks/UseForm';
 
 const List = () => {
+
     // BUSCARDOR
     const [filtro, setFiltro] = useState([]);
     const [formValues, handleInputChange] = useForm({
@@ -17,7 +18,7 @@ const List = () => {
         e.preventDefault();
         Buscador(searchText);
     }
-   
+
 
     const Buscador = async (searchText) => {
         const pUrl = "https://restcountries.com/v2/name/";
@@ -31,7 +32,7 @@ const List = () => {
     };
 
 
-    // TRAERDATOS DE LA API
+    // TRAER DATOS DE LA API
     const [registros, setRegistro] = useState([]);
     const getData = () => {
         axios.get(url)
@@ -41,6 +42,18 @@ const List = () => {
             .catch(error => {
                 console.log(error);
             })
+    }
+    // PAGINACION
+    const [currentPage, setCurrentPage] = useState(0)
+    const filterRegistro = () => {
+        return registros.slice(currentPage, currentPage + 20);
+    }
+    const nextPage = () => {
+        setCurrentPage(currentPage + 20);
+    }
+    const prevPage = () => {
+        if (currentPage > 0)
+            setCurrentPage(currentPage - 20);
     }
 
     // MODAL
@@ -66,6 +79,7 @@ const List = () => {
     console.log(registros)
     console.log(filtro)
     console.log(searchText)
+    // console.log(filterRegistro())
     return (
         <div className='container centrar'>
             <Navbar bg="light" expand="lg" className="sticky-top">
@@ -74,7 +88,7 @@ const List = () => {
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
 
-                        <Form className="d-flex" onSubmit={handleSearch}>
+                        <Form className="d-flex " onSubmit={handleSearch}>
                             <FormControl
                                 type="search"
                                 placeholder="Buscar"
@@ -84,7 +98,23 @@ const List = () => {
                                 value={searchText}
                                 onChange={handleInputChange}
                             />
-                            {/* <Button variant="success">Buscar</Button> */}
+                            <Button className="btn btn-danger me-2 d-flex buttonPage"
+                                onClick={prevPage}
+
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                                </svg>&nbsp; Página anterior
+                            </Button>
+                            <Button className="btb btn-primary buttonPage"
+                                onClick={nextPage}
+
+                            >
+                                Página siguiente &nbsp;
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                </svg>
+                            </Button>
                         </Form>
                     </Navbar.Collapse>
                 </Container>
@@ -108,12 +138,13 @@ const List = () => {
 
                             <tbody>
 
-                                {registros.map((item, index) => (
+                                {filterRegistro().map((item, index) => (
                                     <tr key={index} className='m-3'>
                                         <td> <img src={item.flag} alt="Bandera" width="100" height="100" /></td>
                                         <td> <h5>{item.name}</h5></td>
                                         <td> <h5>{item.region}</h5></td>
                                         <td> <Button variant="info"
+                                            className="buttonPage"
                                             onClick={() => handleShow(item.name)}
                                         >Ver deatalles</Button>{' '} </td>
 
@@ -144,7 +175,7 @@ const List = () => {
                                     <td> <h5>{item.name}</h5></td>
                                     <td> <h5>{item.region}</h5></td>
                                     <td> <Button variant="info"
-                                    onClick={() => handleShow(item.name)}
+                                        onClick={() => handleShow(item.name)}
                                     >Ver deatalles</Button>{' '} </td>
 
                                 </tr>
