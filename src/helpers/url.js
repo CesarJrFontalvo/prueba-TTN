@@ -1,0 +1,1 @@
+export const url ="https://restcountries.com/v2/alpha?codes=col,per,ven,ecu,bol,pan,arg,bra,mex,cri,uru";
