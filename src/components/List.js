@@ -31,7 +31,7 @@ const List = () => {
             console.log(data);
         } catch (error) {
 
-            alert("No se encontro el pais intenta escribirlo de otra forma");
+            alert("No se encontro el país intenta escribirlo de otra forma");
             window.location.reload();
         }
 
@@ -88,7 +88,7 @@ console.log(registros)
         <div className='container centrar'>
             <Navbar bg="light" expand="lg" className="sticky-top">
                 <Container fluid>
-                    <Navbar.Brand href="#">Buscar por pais</Navbar.Brand>
+                    <Navbar.Brand href="#">Buscar por país</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
 
@@ -125,7 +125,7 @@ console.log(registros)
                 </Container>
             </Navbar>
 
-            <h1 className="m-4">Lista de paises</h1>
+            <h1 className="m-4">Lista de países</h1>
 
             {
                 (!searchText) ?
@@ -135,7 +135,7 @@ console.log(registros)
                                 <tr>
 
                                     <th><h5>Bandera</h5></th>
-                                    <th><h5>Pais</h5></th>
+                                    <th><h5>País</h5></th>
                                     <th><h5>Continente</h5></th>
                                     <th><h5>Detalles</h5></th>
                                 </tr>
@@ -167,7 +167,7 @@ console.log(registros)
                             <tr>
 
                                 <th><h5>Bandera</h5></th>
-                                <th><h5>Pais</h5></th>
+                                <th><h5>País</h5></th>
                                 <th><h5>Continente</h5></th>
                                 <th><h5>Detalles</h5></th>
                             </tr>
@@ -192,7 +192,7 @@ console.log(registros)
             }
 
 
-            {/* Modal detalles de los paises*/}
+            {/* Modal detalles de los países*/}
 
             <Container className=" container centrar" >
                 <Modal show={show}
