@@ -17,21 +17,21 @@ const List = () => {
         e.preventDefault();
         Buscador(searchText);
     }
-    // console.log(searchText);
+   
 
     const Buscador = async (searchText) => {
-        const pUrl = "https://restcountries.com/v2/name/"  ;
+        const pUrl = "https://restcountries.com/v2/name/";
         const input = searchText;
         let filtrar = pUrl + input;
-        
+
         const resp = await fetch(filtrar);
         const data = await resp.json();
         setFiltro(data);
         console.log(data);
-      };
+    };
 
 
-    // CONSULTA
+    // TRAERDATOS DE LA API
     const [registros, setRegistro] = useState([]);
     const getData = () => {
         axios.get(url)
@@ -57,23 +57,18 @@ const List = () => {
     useEffect(() => {
         if (searchText === '') {
             getData();
-        
-            
+
         } else {
-            
             Buscador(searchText);
         }
     }, [searchText])
-
-
-
 
     console.log(registros)
     console.log(filtro)
     console.log(searchText)
     return (
         <div className='container centrar'>
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="light" expand="lg" className="sticky-top">
                 <Container fluid>
                     <Navbar.Brand href="#">Buscar por pais</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
@@ -96,33 +91,68 @@ const List = () => {
             </Navbar>
 
             <h1 className="m-4">Lista de paises</h1>
-            <Table className='tabla'>
-                <thead>
-                    <tr>
 
-                        <th><h5>Bandera</h5></th>
-                        <th><h5>Pais</h5></th>
-                        <th><h5>Continente</h5></th>
-                        <th><h5>Detalles</h5></th>
-                    </tr>
-                </thead>
+            {
+                (!searchText) ?
+                    (
+                        <Table className='tabla'>
+                            <thead>
+                                <tr>
 
-                <tbody>
+                                    <th><h5>Bandera</h5></th>
+                                    <th><h5>Pais</h5></th>
+                                    <th><h5>Continente</h5></th>
+                                    <th><h5>Detalles</h5></th>
+                                </tr>
+                            </thead>
 
-                    {registros.map((item, index) => (
-                        <tr key={index} className='m-3'>
-                            <td> <img src={item.flag} alt="Bandera" width="100" height="100" /></td>
-                            <td> <h5>{item.name}</h5></td>
-                            <td> <h5>{item.region}</h5></td>
-                            <td> <Button variant="info"
-                                onClick={() => handleShow(item.name)}
-                            >Ver deatalles</Button>{' '} </td>
+                            <tbody>
 
-                        </tr>
-                    ))}
+                                {registros.map((item, index) => (
+                                    <tr key={index} className='m-3'>
+                                        <td> <img src={item.flag} alt="Bandera" width="100" height="100" /></td>
+                                        <td> <h5>{item.name}</h5></td>
+                                        <td> <h5>{item.region}</h5></td>
+                                        <td> <Button variant="info"
+                                            onClick={() => handleShow(item.name)}
+                                        >Ver deatalles</Button>{' '} </td>
 
-                </tbody>
-            </Table>
+                                    </tr>
+                                ))}
+
+                            </tbody>
+                        </Table>
+
+                    ) :
+
+                    <Table className='tabla'>
+                        <thead>
+                            <tr>
+
+                                <th><h5>Bandera</h5></th>
+                                <th><h5>Pais</h5></th>
+                                <th><h5>Continente</h5></th>
+                                <th><h5>Detalles</h5></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {filtro.map((item, index) => (
+                                <tr key={index} className='m-3'>
+                                    <td> <img src={item.flag} alt="Bandera" width="100" height="100" /></td>
+                                    <td> <h5>{item.name}</h5></td>
+                                    <td> <h5>{item.region}</h5></td>
+                                    <td> <Button variant="info"
+                                    onClick={() => handleShow(item.name)}
+                                    >Ver deatalles</Button>{' '} </td>
+
+                                </tr>
+                            ))}
+
+                        </tbody>
+                    </Table>
+            }
 
 
             {/* Modal de la descripcion de las peliculas */}

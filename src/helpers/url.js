@@ -1,1 +1,1 @@
-export const url ="https://restcountries.com/v2/alpha?codes=col,per,ven,ecu,bol,pan,arg,bra,mex,cri,uru";
+export const url ="https://restcountries.com/v2/alpha?codes=col,per,ven,ecu,bol,pan,arg,bra,mex,cri,uru,chi,jpn,aus,nzl,gbr,usa,fra,esp,ita,ger,pol,swe,sco,nor,den,fin,srb,hrv,cze,dnk,tun,kor,jor,irn,isl,sau,rus,bel,bgr";
